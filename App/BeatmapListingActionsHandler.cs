@@ -84,6 +84,8 @@ namespace App
                 }
             }
 
+            files.RemoveWhere(string.IsNullOrWhiteSpace);
+
             if (!Directory.Exists(destinationDirectory))
             {
                 Directory.CreateDirectory(destinationDirectory);
