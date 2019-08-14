@@ -77,7 +77,7 @@ namespace CollectionManagerExtensionsDll.Utils
         }
         public static string BeatmapDirectory(this Beatmap beatmap)
         {
-            return Path.Combine(OsuSongsDirectory, beatmap.Dir);
+            return Path.Combine(OsuSongsDirectory, beatmap.Dir.Trim());
         }
         public static string FullOsuFileLocation(this Beatmap beatmap)
         {

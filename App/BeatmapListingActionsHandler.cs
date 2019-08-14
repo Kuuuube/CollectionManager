@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using CollectionManagerExtensionsDll.Modules.BeatmapExporter;
 
 namespace App
 {
@@ -62,56 +64,37 @@ namespace App
             _beatmapOperationHandlers[args](sender);
         }
 
-        private void ExportBeatmaps(object sender)
+        private async void ExportBeatmaps(object sender)
         {
             var model = (IBeatmapListingModel)sender;
-            var mapSets = CollectionUtils.GetBeatmapSets(model.SelectedBeatmaps);
 
             var destinationDirectory = _userDialogs.SelectDirectory("Select directory for exported beatmaps", true);
 
             if (string.IsNullOrEmpty(destinationDirectory))
                 return;
 
-            var files = new HashSet<string>();
-
-            foreach (var mapSet in mapSets)
+            var exporter = new BeatmapExporter();
+            var exportForm = GuiComponentsProvider.Instance.GetClassImplementing<IBeatmapExportForm>();
+            var cancelationTokenSource = new CancellationTokenSource();
+            exportForm.Show(cancelationTokenSource);
+            try
             {
-                foreach (var beatmap in mapSet.Value)
-                {
-                    files.Add(beatmap.GetImageLocation());
-                    files.Add(beatmap.FullAudioFileLocation());
-                    files.Add(beatmap.FullOsuFileLocation());
-                }
-            }
-
-            files.RemoveWhere(string.IsNullOrWhiteSpace);
-
-            if (!Directory.Exists(destinationDirectory))
-            {
-                Directory.CreateDirectory(destinationDirectory);
-            }
-
-            var songsDirectory = BeatmapUtils.OsuSongsDirectory;
-
-            foreach (var fileLocation in files)
-            {
-                var relativeDirectory = Path.GetDirectoryName(fileLocation)?.Replace(songsDirectory, "") ?? string.Empty;
-                var fileName = Path.GetFileName(fileLocation);
-
-                if (!string.IsNullOrEmpty(relativeDirectory) && !string.IsNullOrEmpty(fileName))
-                {
-                    var newDirectory = Path.Combine(destinationDirectory, relativeDirectory);
-                    var newLocation = Path.Combine(newDirectory, fileName);
-                    Directory.CreateDirectory(newDirectory);
-                    if (!File.Exists(newLocation))
+                await exporter.ExportBeatmaps(model.SelectedBeatmaps, destinationDirectory,
+                    (metadataStatus, preparedFiles) =>
                     {
-                        File.Copy(fileLocation, newLocation);
-                    }
-                }
+                        exportForm.TotalFiles = preparedFiles;
+                        exportForm.MetadataStatus = metadataStatus;
+                    },
+                    (copyStatus, processedFiles) =>
+                    {
+                        exportForm.ProcessedFiles = processedFiles;
+                        exportForm.CopyStatus = copyStatus;
+                    }, cancelationTokenSource.Token);
             }
-
-            _userDialogs.OkMessageBox($"Copied {files.Count} files used by {model.SelectedBeatmaps.Count} beatmaps.{Environment.NewLine}\"{destinationDirectory}\""
-                , "Success", MessageBoxType.Success);
+            catch (OperationCanceledException)
+            {
+                _userDialogs.OkMessageBox("Export aborted", "Warning", MessageBoxType.Warning);
+            }
         }
 
         private void PullWholeMapsets(object sender)
