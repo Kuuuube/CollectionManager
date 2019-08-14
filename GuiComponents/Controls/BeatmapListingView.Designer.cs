@@ -47,6 +47,8 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyUrlMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.copyAsTextMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.PullMapsetMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.beatmapExportMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.ListViewBeatmaps = new BrightIdeasSoftware.FastDataListView();
             this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn4 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -58,14 +60,13 @@
             this.column_od = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn10 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.LastPlayed = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn12 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn13 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColumn1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn6 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn7 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn8 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.PullMapsetMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.olvColumn9 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn11 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.BeatmapsContextMenuStrip.SuspendLayout();
@@ -109,7 +110,7 @@
             this.copyToolStripMenuItem,
             this.PullMapsetMenuStrip});
             this.BeatmapsContextMenuStrip.Name = "CollectionContextMenuStrip";
-            this.BeatmapsContextMenuStrip.Size = new System.Drawing.Size(172, 114);
+            this.BeatmapsContextMenuStrip.Size = new System.Drawing.Size(181, 136);
             // 
             // OpenDlMapMenuStrip
             // 
@@ -118,7 +119,7 @@
             this.OpenBeatmapDownloadMapMenuStrip,
             this.OpenBeatmapFolderMenuStrip});
             this.OpenDlMapMenuStrip.Name = "OpenDlMapMenuStrip";
-            this.OpenDlMapMenuStrip.Size = new System.Drawing.Size(171, 22);
+            this.OpenDlMapMenuStrip.Size = new System.Drawing.Size(180, 22);
             this.OpenDlMapMenuStrip.Text = "Open";
             // 
             // OpenBeatmapPageMapMenuStrip
@@ -163,7 +164,7 @@
             this.DeleteMapMenuStrip.Enabled = false;
             this.DeleteMapMenuStrip.Name = "DeleteMapMenuStrip";
             this.DeleteMapMenuStrip.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.DeleteMapMenuStrip.Size = new System.Drawing.Size(171, 22);
+            this.DeleteMapMenuStrip.Size = new System.Drawing.Size(180, 22);
             this.DeleteMapMenuStrip.Text = "Delete";
             this.DeleteMapMenuStrip.Click += new System.EventHandler(this.MenuStripClick);
             // 
@@ -175,7 +176,7 @@
             this.SearchTitleMapMenuStrip});
             this.searchToolStripMenuItem.Enabled = false;
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.searchToolStripMenuItem.Text = "Search";
             // 
             // SearchMapsetMapMenuStrip
@@ -200,24 +201,39 @@
             // 
             this.copyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyUrlMenuStrip,
-            this.copyAsTextMenuStrip});
+            this.copyAsTextMenuStrip,
+            this.beatmapExportMenuStrip});
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             // 
             // copyUrlMenuStrip
             // 
             this.copyUrlMenuStrip.Name = "copyUrlMenuStrip";
-            this.copyUrlMenuStrip.Size = new System.Drawing.Size(109, 22);
-            this.copyUrlMenuStrip.Text = "url(s)";
+            this.copyUrlMenuStrip.Size = new System.Drawing.Size(180, 22);
+            this.copyUrlMenuStrip.Text = "Beatmap url(s)";
             this.copyUrlMenuStrip.Click += new System.EventHandler(this.MenuStripClick);
             // 
             // copyAsTextMenuStrip
             // 
             this.copyAsTextMenuStrip.Name = "copyAsTextMenuStrip";
-            this.copyAsTextMenuStrip.Size = new System.Drawing.Size(109, 22);
+            this.copyAsTextMenuStrip.Size = new System.Drawing.Size(180, 22);
             this.copyAsTextMenuStrip.Text = "As text";
             this.copyAsTextMenuStrip.Click += new System.EventHandler(this.MenuStripClick);
+            // 
+            // PullMapsetMenuStrip
+            // 
+            this.PullMapsetMenuStrip.Name = "PullMapsetMenuStrip";
+            this.PullMapsetMenuStrip.Size = new System.Drawing.Size(180, 22);
+            this.PullMapsetMenuStrip.Text = "Pull whole mapset";
+            this.PullMapsetMenuStrip.Click += new System.EventHandler(this.MenuStripClick);
+            // 
+            // beatmapExportMenuStrip
+            // 
+            this.beatmapExportMenuStrip.Name = "beatmapExportMenuStrip";
+            this.beatmapExportMenuStrip.Size = new System.Drawing.Size(180, 22);
+            this.beatmapExportMenuStrip.Text = "Beatmap Export";
+            this.beatmapExportMenuStrip.Click += new System.EventHandler(this.MenuStripClick);
             // 
             // ListViewBeatmaps
             // 
@@ -354,6 +370,12 @@
             this.olvColumn10.Text = "N/U";
             this.olvColumn10.Width = 35;
             // 
+            // olvColumn1
+            // 
+            this.olvColumn1.AspectName = "OsuGrade";
+            this.olvColumn1.IsEditable = false;
+            this.olvColumn1.Text = "OsuGrade";
+            // 
             // LastPlayed
             // 
             this.LastPlayed.AspectName = "LastPlayed";
@@ -371,12 +393,6 @@
             // 
             this.olvColumn13.AspectName = "UserComment";
             this.olvColumn13.Text = "Comment";
-            // 
-            // olvColumn1
-            // 
-            this.olvColumn1.AspectName = "OsuGrade";
-            this.olvColumn1.IsEditable = false;
-            this.olvColumn1.Text = "OsuGrade";
             // 
             // olvColumn6
             // 
@@ -398,13 +414,6 @@
             this.olvColumn8.IsEditable = false;
             this.olvColumn8.IsVisible = false;
             this.olvColumn8.Text = "ManiaGrade";
-            // 
-            // PullMapsetMenuStrip
-            // 
-            this.PullMapsetMenuStrip.Name = "PullMapsetMenuStrip";
-            this.PullMapsetMenuStrip.Size = new System.Drawing.Size(180, 22);
-            this.PullMapsetMenuStrip.Text = "Pull whole mapset";
-            this.PullMapsetMenuStrip.Click += new System.EventHandler(this.MenuStripClick);
             // 
             // olvColumn9
             // 
@@ -478,5 +487,6 @@
         private System.Windows.Forms.ToolStripMenuItem PullMapsetMenuStrip;
         private BrightIdeasSoftware.OLVColumn olvColumn9;
         private BrightIdeasSoftware.OLVColumn olvColumn11;
+        private System.Windows.Forms.ToolStripMenuItem beatmapExportMenuStrip;
     }
 }

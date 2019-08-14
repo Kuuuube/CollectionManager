@@ -9,6 +9,7 @@
         OpenBeatmapFolder, //Open currently selected beatmap folder(s?)
         CopyBeatmapsAsText, //Copy text representation of selected beatmaps
         CopyBeatmapsAsUrls, //Copy map links of selected beatmaps
+        ExportBeatmaps, //Open export beatmaps screen
         PullWholeMapSet, //Finds all mapsets from selected maps and adds them to current collection
     }
 }

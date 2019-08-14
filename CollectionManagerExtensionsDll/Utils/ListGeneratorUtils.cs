@@ -4,7 +4,7 @@ using CollectionManager.DataTypes;
 
 namespace CollectionManagerExtensionsDll.Modules.CollectionListGenerator.ListTypes
 {
-    internal static class CollectionUtils
+    public static class CollectionUtils
     {
         /// <summary>
         /// Returns grouped beatmaps using MapSetId
@@ -19,7 +19,7 @@ namespace CollectionManagerExtensionsDll.Modules.CollectionListGenerator.ListTyp
         }
         
 
-        internal static Dictionary<int, Beatmaps> GetBeatmapSets(IEnumerable<Beatmap> collection)
+        public static Dictionary<int, Beatmaps> GetBeatmapSets(IEnumerable<Beatmap> collection)
         {
             var beatmapSets = new Dictionary<int, Beatmaps>();
             beatmapSets.Add(-1, new Beatmaps());

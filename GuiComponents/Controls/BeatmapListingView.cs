@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using CollectionManager.DataTypes;
 using CollectionManager.Enums;
 using CollectionManagerExtensionsDll.Modules;
-using Common;
 using GuiComponents.Interfaces;
 using Gui.Misc;
 
@@ -252,8 +249,8 @@ namespace GuiComponents.Controls
                 BeatmapOperation?.Invoke(this, Common.BeatmapListingAction.OpenBeatmapFolder);
             else if (sender == PullMapsetMenuStrip)
                 BeatmapOperation?.Invoke(this, Common.BeatmapListingAction.PullWholeMapSet);
+            else if (sender == beatmapExportMenuStrip)
+                BeatmapOperation?.Invoke(this, Common.BeatmapListingAction.ExportBeatmaps);
         }
     }
-
-
 }
