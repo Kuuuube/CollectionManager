@@ -74,9 +74,14 @@ namespace CollectionManagerExtensionsDll.Modules.BeatmapExporter
                     statusUpdater?.Invoke($"Copied {processedCount} files out of {processedCount + filesQueue.Count} in queue", processedCount);
                 }
 
-                if (stopFileCopyWorker.WaitOne(1) && filesQueue.IsEmpty)
+                if (stopFileCopyWorker.WaitOne(1))
                 {
-                    return;
+                    if (filesQueue.IsEmpty)
+                    {
+                        return;
+                    }
+
+                    stopFileCopyWorker.Set();
                 }
 
                 token.ThrowIfCancellationRequested();
@@ -87,7 +92,7 @@ namespace CollectionManagerExtensionsDll.Modules.BeatmapExporter
         {
             var mapSets = CollectionUtils.GetBeatmapSets(beatmaps);
             var fileCount = 0;
-            var totalBeatmaps = beatmaps.Count();
+            var totalBeatmaps = beatmaps.Count;
             var processedBeatmapsCount = 0;
             foreach (var mapSet in mapSets)
             {
@@ -108,18 +113,21 @@ namespace CollectionManagerExtensionsDll.Modules.BeatmapExporter
                 }
             }
 
+            UpdateStatus();
+            stopFileCopyWorker.Set();
+
             void Enqueue(string file)
             {
                 if (File.Exists(file))
                 {
                     UpdateStatus();
+                    fileCount++;
                     filesQueue.Enqueue(file);
                 }
             }
 
             void UpdateStatus()
             {
-                fileCount++;
                 statusUpdater?.Invoke($"Processed {processedBeatmapsCount} beatmaps. {totalBeatmaps - processedBeatmapsCount} beatmaps left.", fileCount);
             }
         }

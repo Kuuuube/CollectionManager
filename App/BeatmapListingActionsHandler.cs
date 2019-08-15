@@ -77,6 +77,7 @@ namespace App
             var exportForm = GuiComponentsProvider.Instance.GetClassImplementing<IBeatmapExportForm>();
             var cancelationTokenSource = new CancellationTokenSource();
             exportForm.Show(cancelationTokenSource);
+            exportForm.Closing += (_, __) => cancelationTokenSource.Cancel();
             try
             {
                 await exporter.ExportBeatmaps(model.SelectedBeatmaps, destinationDirectory,
@@ -90,6 +91,9 @@ namespace App
                         exportForm.ProcessedFiles = processedFiles;
                         exportForm.CopyStatus = copyStatus;
                     }, cancelationTokenSource.Token);
+
+                exportForm.Close();
+                _userDialogs.OkMessageBox($"Exporting finished{Environment.NewLine}{exportForm.MetadataStatus}{Environment.NewLine}{exportForm.CopyStatus}", "Info", MessageBoxType.Success);
             }
             catch (OperationCanceledException)
             {
