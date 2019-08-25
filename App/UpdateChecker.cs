@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Reflection;
 using App.Interfaces;
 using CollectionManagerExtensionsDll.Utils;
@@ -28,28 +29,37 @@ namespace App
 
         public bool CheckForUpdates()
         {
-            var data = GetStringData(githubUpdateUrl);
-            if (string.IsNullOrEmpty(data))
-            {
-                Error = true;
-                return false;
-            }
-
-            JObject json;
             try
             {
-                json = JObject.Parse(data);
+                var data = GetStringData(githubUpdateUrl);
+                if (string.IsNullOrEmpty(data))
+                {
+                    Error = true;
+                    return false;
+                }
+
+                JObject json;
+                try
+                {
+                    json = JObject.Parse(data);
+                }
+                catch (JsonReaderException)
+                {
+                    return false;
+                }
+
+                var newestReleaseVersion = json["tag_name"].ToString();
+                OnlineVersion = new Version(newestReleaseVersion);
+                NewVersionLink = json["html_url"].ToString();
+
+                return UpdateIsAvailable;
             }
-            catch (JsonReaderException)
+            catch (WebException)
             {
-                return false;
+                Error = true;
             }
 
-            var newestReleaseVersion = json["tag_name"].ToString();
-            OnlineVersion = new Version(newestReleaseVersion);
-            NewVersionLink = json["html_url"].ToString();
-
-            return UpdateIsAvailable;
+            return false;
         }
 
         private string GetStringData(string url)
