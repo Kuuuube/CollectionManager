@@ -282,7 +282,7 @@ namespace App
             if (fileLocation == string.Empty) return;
             var listGenerator = new ListGenerator();
             var CollectionListSaveType = Path.GetExtension(fileLocation).ToLower() == ".txt"
-                ? CollectionManagerExtensionsDll.Enums.CollectionListSaveType.Txt
+                ? CollectionManagerExtensionsDll.Enums.CollectionListSaveType.FileList
                 : CollectionManagerExtensionsDll.Enums.CollectionListSaveType.Html;
             var contents = listGenerator.GetAllMapsList(Initalizer.LoadedCollections, CollectionListSaveType);
             File.WriteAllText(fileLocation, contents);

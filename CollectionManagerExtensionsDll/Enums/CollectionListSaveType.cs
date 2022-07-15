@@ -7,6 +7,7 @@
         osuBBCode,
         RedditCode,
         BeatmapList,
+        FileList,
         UserDefined
     }
 }
