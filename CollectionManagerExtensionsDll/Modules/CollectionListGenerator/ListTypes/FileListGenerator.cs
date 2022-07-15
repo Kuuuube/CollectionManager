@@ -2,6 +2,7 @@
 using System.Text;
 using CollectionManager.DataTypes;
 using CollectionManagerExtensionsDll.Utils;
+using System.Diagnostics;
 
 namespace CollectionManagerExtensionsDll.Modules.CollectionListGenerator.ListTypes
 {
@@ -48,16 +49,43 @@ namespace CollectionManagerExtensionsDll.Modules.CollectionListGenerator.ListTyp
 
         private void GetMapSetList(int mapSetId, Beatmaps beatmaps, ref StringBuilder sb)
         {
-            var DirectoryLocation = ((BeatmapExtension)beatmaps[0]).BeatmapDirectory();
-            var osuFileLocation = ((BeatmapExtension)beatmaps[0]).FullOsuFileLocation();
-            var audioFileLocation = ((BeatmapExtension)beatmaps[0]).FullAudioFileLocation();
-            var imageLocation = ((BeatmapExtension)beatmaps[0]).GetImageLocation();
-            sb.AppendFormat("\r\n\"{0}\"", DirectoryLocation);
-            foreach (var map in beatmaps)
+
+            if (mapSetId == -1)
             {
-                sb.AppendFormat("\r\n    \"{0}\" \"{1}\" \"{2}\"", osuFileLocation, audioFileLocation, imageLocation);
+                /*foreach (var map in beatmaps)
+                {
+                    if (map.MapId > 0)
+                    {
+                        var DirectoryLocation = ((BeatmapExtension)map).BeatmapDirectory();
+                        var osuFileLocation = ((BeatmapExtension)map).FullOsuFileLocation();
+                        var audioFileLocation = ((BeatmapExtension)map).FullAudioFileLocation();
+                        var imageLocation = ((BeatmapExtension)map).GetImageLocation();
+
+                        sb.AppendFormat("\r\n\"{0}\"", DirectoryLocation);
+                            sb.AppendFormat("\r\n    \"{0}\" \"{1}\" \"{2}\"", osuFileLocation, audioFileLocation, imageLocation);
+                        if (!string.IsNullOrWhiteSpace(map.DiffName))
+                            sb.AppendFormat(" [{0}]{1}", map.DiffName, Lb);
+                    }
+                    else
+                    {
+                        sb.AppendFormat("No data - {0}{1}", map.Md5, Lb);
+                    }
+                }*/
             }
-            sb.Append(Lb);
+            else
+            {
+                var DirectoryLocation = ((BeatmapExtension)beatmaps[0]).BeatmapDirectory();
+                var osuFileLocation = ((BeatmapExtension)beatmaps[0]).FullOsuFileLocation();
+                var audioFileLocation = ((BeatmapExtension)beatmaps[0]).FullAudioFileLocation();
+                var imageLocation = ((BeatmapExtension)beatmaps[0]).GetImageLocation();
+
+                sb.AppendFormat("\r\n\"{0}\"", DirectoryLocation);
+                foreach (var map in beatmaps)
+                {
+                    sb.AppendFormat("\r\n    \"{0}\" \"{1}\" \"{2}\"", osuFileLocation, audioFileLocation, imageLocation);
+                }
+                sb.Append(Lb);
+            }
         }
     }
 }
